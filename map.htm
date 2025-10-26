@@ -1,43 +1,35 @@
-<html>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Maps Embed</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .map-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 Seitenverhältnis */
+      height: 0;
+    }
+    .map-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
 <body>
-<iframe src="https://www.google.com/maps/d/u/0/embed?mid=15Jm200oSkVrMgM8Mv2Dum5S7r4hhH3E&ehbc=2E312F&noprof=1" width="1800" height="1080"></iframe>
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/d/u/0/embed?mid=15Jm200oSkVrMgM8Mv2Dum5S7r4hhH3E&ehbc=2E312F&noprof=1" 
+      allowfullscreen>
+    </iframe>
+  </div>
 </body>
-<ol class="fancy-list">
-  <li>Erster Punkt</li>
-  <li>Zweiter Punkt</li>
-  <li>Dritter Punkt</li>
-</ol>
-
-<style>
-.fancy-list {
-  list-style: none;
-  counter-reset: item;
-  padding: 0;
-}
-
-.fancy-list li {
-  counter-increment: item;
-  margin: 8px 0;
-  position: relative;
-  padding-left: 40px;
-  font-family: sans-serif;
-}
-
-.fancy-list li::before {
-  content: counter(item);
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #007BFF; /* Farbe des Kreises */
-  color: white;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-</style>
 </html>
