@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Krippenweg 2025/26</name>
+    <description>Evangelisch- methodistische Kirche</description>
+    <Style id="icon-seq2-0-0-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-1.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-0-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-1.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-0-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-0-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-0-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-1-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-2.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-1-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-2.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-1-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-1-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-1-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-10-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-11.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-10-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-11.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-10-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-10-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-10-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-11-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-12.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-11-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-12.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-11-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-11-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-11-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-12-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-13.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-12-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-13.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-12-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-12-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-12-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-13-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-14.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-13-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-14.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-13-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-13-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-13-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-14-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-15.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-14-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-15.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-14-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-14-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-14-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-15-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-16.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-15-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-16.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-15-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-15-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-15-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-16-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-17.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-16-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-17.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-16-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-16-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-16-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-17-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-18.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-17-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-18.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-17-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-17-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-17-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-18-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-19.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-18-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-19.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-18-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-18-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-18-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-19-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-20.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-19-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-20.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-19-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-19-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-19-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-2-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-3.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-2-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-3.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-2-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-2-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-2-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-20-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-21.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-20-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-21.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-20-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-20-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-20-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-21-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-22.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-21-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-22.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-21-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-21-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-21-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-22-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-23.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-22-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-23.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-22-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-22-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-22-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-23-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-24.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-23-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-24.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-23-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-23-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-23-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-3-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-4.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-3-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-4.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-3-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-3-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-3-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-4-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-5.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-4-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-5.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-4-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-4-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-4-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-5-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-6.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-5-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-6.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-5-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-5-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-5-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-6-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-7.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-6-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-7.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-6-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-6-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-6-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-7-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-8.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-7-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-8.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-7-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-7-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-7-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-8-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-9.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-8-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-9.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-8-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-8-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-8-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-seq2-0-9-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-10.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-9-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-10.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-9-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-9-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-9-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Stationen</name>
+      <Placemark>
+        <name>Rathaus</name>
+        <description>Rathaus</description>
+        <styleUrl>#icon-seq2-0-0-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.996512,48.62786,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 4</name>
+        <description>Schaichhofstraße 4</description>
+        <styleUrl>#icon-seq2-0-1-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.996485,48.627028,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 3</name>
+        <description>Schaichhofstraße 3</description>
+        <styleUrl>#icon-seq2-0-2-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.996985,48.626935,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 7</name>
+        <description>Schaichhofstraße 7</description>
+        <styleUrl>#icon-seq2-0-3-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997268,48.627001,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 7/1</name>
+        <description>Schaichhofstraße 7/1</description>
+        <styleUrl>#icon-seq2-0-4-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997516,48.627066,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>EMK Baum</name>
+        <description>EMK Baum</description>
+        <styleUrl>#icon-seq2-0-5-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997162,48.626784,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>EMK Eingang</name>
+        <description>EMK Eingang</description>
+        <styleUrl>#icon-seq2-0-6-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997247,48.626807,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>EMK Schaukasten</name>
+        <description>EMK Schaukasten</description>
+        <styleUrl>#icon-seq2-0-7-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.99722,48.626733,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 9</name>
+        <description>Schaichhofstraße 9</description>
+        <styleUrl>#icon-seq2-0-8-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997467,48.626628,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Weilemer Weg 11</name>
+        <description>Weilemer Weg 11</description>
+        <styleUrl>#icon-seq2-0-9-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.998046,48.626556,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schulstraße/Weilemer Weg</name>
+        <description>Schulstraße/Weilemer Weg</description>
+        <styleUrl>#icon-seq2-0-10-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.998644,48.626702,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 32</name>
+        <description>Schaichhofstraße 32</description>
+        <styleUrl>#icon-seq2-0-11-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.999575,48.625318,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 16</name>
+        <description>Schaichhofstraße 16</description>
+        <styleUrl>#icon-seq2-0-12-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997858,48.626355,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schaichhofstraße 10</name>
+        <description>Schaichhofstraße 10</description>
+        <styleUrl>#icon-seq2-0-13-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997009,48.626693,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Milchstraße 10</name>
+        <description>Milchstraße 10</description>
+        <styleUrl>#icon-seq2-0-14-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.996024,48.626455,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bachstraße/Stützenstraße</name>
+        <description>Bachstraße/Stützenstraße</description>
+        <styleUrl>#icon-seq2-0-15-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.995117,48.628532,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kastanie Mühlstraße</name>
+        <description>Kastanie Mühlstraße</description>
+        <styleUrl>#icon-seq2-0-16-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.990766,48.629751,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brombergweg 17</name>
+        <description>Brombergweg 17</description>
+        <styleUrl>#icon-seq2-0-17-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.990431,48.629361,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Brombergweg 23</name>
+        <description>Brombergweg 23</description>
+        <styleUrl>#icon-seq2-0-18-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.9897474,48.6296091,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Samariterstift</name>
+        <description>Samariterstift</description>
+        <styleUrl>#icon-seq2-0-19-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.989474,48.630042,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Friedhof</name>
+        <description>Friedhof</description>
+        <styleUrl>#icon-seq2-0-20-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.99485,48.630699,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Schillerstrasse 70</name>
+        <description>Schillerstrasse 70</description>
+        <styleUrl>#icon-seq2-0-21-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            9.0014384,48.6307412,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bühlstraße/Schulstraße</name>
+        <description>Bühlstraße/Schulstraße</description>
+        <styleUrl>#icon-seq2-0-22-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.997864,48.628697,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Simonsen Haus</name>
+        <description>Simonsen Haus</description>
+        <styleUrl>#icon-seq2-0-23-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.996768,48.628338,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
