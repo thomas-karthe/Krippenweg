@@ -79,8 +79,8 @@
 
     <!-- 24 Symbole -->
     ${[...Array(24).keys()].map(i => `
-      <Style id="icon-${i+1}-normal"><IconStyle><scale>1</scale><Icon><href>images/icon-${i+1}.png</href></Icon></IconStyle><LabelStyle><scale>0</scale></LabelStyle></Style>
-      <Style id="icon-${i+1}-highlight"><IconStyle><scale>1</scale><Icon><href>images/icon-${i+1}.png</href></Icon></IconStyle><LabelStyle><scale>1</scale></LabelStyle></Style>
+      <Style id="icon-${i+1}-normal"><IconStyle><scale>1</scale><Icon><href>data/images/icon-${i+1}.png</href></Icon></IconStyle><LabelStyle><scale>0</scale></LabelStyle></Style>
+      <Style id="icon-${i+1}-highlight"><IconStyle><scale>1</scale><Icon><href>data/images/icon-${i+1}.png</href></Icon></IconStyle><LabelStyle><scale>1</scale></LabelStyle></Style>
       <StyleMap id="icon-${i+1}"><Pair><key>normal</key><styleUrl>#icon-${i+1}-normal</styleUrl></Pair><Pair><key>highlight</key><styleUrl>#icon-${i+1}-highlight</styleUrl></Pair></StyleMap>
     `).join('')}
 
@@ -121,7 +121,7 @@
     }).addTo(map);
 
     // === 3) Parser und Darstellung ===
-    const ICONS_BASE = 'images/';
+    const ICONS_BASE = 'data/images/';
     const KML_NS = 'http://www.opengis.net/kml/2.2';
     const byTag = (p, t) => Array.from(p.getElementsByTagNameNS(KML_NS, t));
     const txt = e => e ? e.textContent.trim() : '';
