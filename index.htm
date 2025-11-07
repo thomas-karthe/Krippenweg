@@ -121,7 +121,7 @@
     }
 
     // KML laden und rendern
-    fetch('data/doc.kml')
+    fetch('data/Krippenweg.kml')
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
@@ -170,12 +170,12 @@
         if (markers.length) {
           map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15));
         } else {
-          console.warn('Keine Placemark-Punkte in data/doc.kml gefunden.');
+          console.warn('Keine Placemark-Punkte in data/Krippenweg.kml gefunden.');
         }
       })
       .catch(err => {
         console.error('KML-Fehler:', err);
-        alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/doc.kml');
+        alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/Krippenweg.kml');
       });
   </script>
 </body>
