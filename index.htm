@@ -50,7 +50,7 @@
     #toggleBtn:hover { background:#aa4466; }
 
     #resetBtn {
-      right:100px;
+      right:150px;
       background:#993355;
       width:40px;
       height:40px;
@@ -142,7 +142,7 @@
     toggleBtn.addEventListener('click', () => {
       visible = !visible;
       overlay.classList.toggle('visible', visible);
-      toggleBtn.textContent = visible ? '× Schließen' : '☰ Liste';
+      toggleBtn.textContent = visible ? '× Schließen' : '☰ Stationen';
     });
 
     // === Hilfsfunktionen für KML ===
@@ -213,7 +213,7 @@
           li.title = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
           li.addEventListener('click', () => {
             overlay.classList.remove('visible');
-            toggleBtn.textContent = '☰ Liste'; visible = false;
+            toggleBtn.textContent = '☰ Stationen'; visible = false;
             map.flyTo([lat, lon], 18, { animate:true, duration:0.9 });
             marker.openPopup();
           });
@@ -251,6 +251,7 @@
   </script>
 </body>
 </html>
+
 
 
 
