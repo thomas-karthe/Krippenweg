@@ -107,8 +107,8 @@
 <body>
   <div id="map"></div>
 
-  <button id="resetBtn" title="Karte">
-    <img src="data/images/World1.png" alt="Karte" id="resetIcon">
+  <button id="resetBtn" title="Karte">Karte
+    <img src="data/images/World3.png" alt="Karte" id="resetIcon">
   </button>
 
   <button id="toggleBtn">☰ Liste</button>
@@ -240,17 +240,18 @@
         map.removeLayer(lightLayer);
         osmLayer.addTo(map);
         currentLayer = osmLayer;
-        resetIcon.src = 'data/images/World2.png';
+        resetIcon.src = 'data/images/World4.png';
       } else {
         map.removeLayer(osmLayer);
         lightLayer.addTo(map);
         currentLayer = lightLayer;
-        resetIcon.src = 'data/images/World1.png';
+        resetIcon.src = 'data/images/World3.png';
       }
     });
   </script>
 </body>
 </html>
+
 
 
 
