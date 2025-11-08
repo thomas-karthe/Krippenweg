@@ -17,7 +17,7 @@
     #overlay {
       position:absolute; top:0; left:0; bottom:0;
       width:min(300px, 70vw);
-      background:rgba(255,255,255,0.85);
+      background:rgba(255,255,255,0.82);
       box-shadow:4px 0 25px rgba(0,0,0,0.2);
       padding:18px 20px 14px;
       overflow-y:auto;
@@ -29,48 +29,89 @@
     }
     #overlay.visible { transform:translateX(0); }
 
-    /* Toggle-Button oben rechts */
+    /* Toggle-Buttons oben rechts */
+    #toggleBtn, #resetBtn {
+      position:absolute;
+      top:16px;
+      z-index:1100;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      box-shadow:0 2px 8px rgba(0,0,0,0.3);
+      transition:background 0.2s ease, transform 0.2s ease;
+    }
     #toggleBtn {
-      position:absolute; top:16px; right:16px; z-index:1100;
-      background:#993355; color:#fff; border:none; border-radius:8px;
-      padding:8px 14px; font-size:16px; cursor:pointer;
-      box-shadow:0 2px 8px rgba(0,0,0,0.3); transition:background .2s ease;
+      right:16px;
+      background:#993355;
+      color:#fff;
+      padding:8px 14px;
+      font-size:16px;
     }
     #toggleBtn:hover { background:#aa4466; }
 
-    /* Karte-Umschaltbutton */
-    #mapBtn {
-      position:absolute; top:16px; right:110px; z-index:1100;
-      background:#555; color:#fff; border:none; border-radius:8px;
-      padding:8px 14px; font-size:16px; cursor:pointer;
-      box-shadow:0 2px 8px rgba(0,0,0,0.3); transition:background .2s ease;
+    #resetBtn {
+      right:70px;
+      background:#555;
+      width:40px;
+      height:40px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px;
     }
-    #mapBtn:hover { background:#666; }
+    #resetBtn:hover { background:#666; }
+    #resetBtn img { width:24px; height:24px; transition:transform 0.3s ease; }
+    #resetBtn:hover img { transform:rotate(10deg); }
 
     h2 { margin:0 0 10px; font-weight:600; font-size:20px; color:#222; }
 
     /* Fancy-Liste */
-    ol.fancy-list { list-style:none; counter-reset:item; padding:0; margin:8px 0 0; }
+    ol.fancy-list {
+      list-style:none;
+      counter-reset:item;
+      padding:0;
+      margin:8px 0 0;
+    }
     ol.fancy-list li {
-      counter-increment:item; margin:10px 0; padding-left:48px;
-      position:relative; cursor:pointer; color:#111; font-weight:500; transition:color .2s ease;
+      counter-increment:item;
+      margin:10px 0;
+      padding-left:48px;
+      position:relative;
+      cursor:pointer;
+      color:#111;
+      font-weight:500;
+      transition:color .2s ease;
     }
     ol.fancy-list li::before {
       content:counter(item);
-      position:absolute; left:0; top:50%; transform:translateY(-50%);
-      background:#993355; color:#fff; width:30px; height:30px;
-      border-radius:50%; display:flex; align-items:center; justify-content:center;
-      font-weight:700; font-size:15px;
+      position:absolute;
+      left:0; top:50%;
+      transform:translateY(-50%);
+      background:#993355;
+      color:#fff;
+      width:30px; height:30px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:15px;
       box-shadow:0 2px 4px rgba(0,0,0,0.25);
     }
-    ol.fancy-list li:hover { color:#993355; text-decoration:underline; }
+    ol.fancy-list li:hover {
+      color:#993355;
+      text-decoration:underline;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
 
+  <button id="resetBtn" title="Karte">
+    <img src="data/images/World1.png" alt="Karte" id="resetIcon">
+  </button>
+
   <button id="toggleBtn">☰ Liste</button>
-  <button id="mapBtn">🌐 Karte</button>
 
   <aside id="overlay">
     <h2>Krippenweg 2025/26</h2>
@@ -78,34 +119,25 @@
   </aside>
 
   <script>
-    // Karte ohne +/- Buttons
+    // === Karte initialisieren ===
     const map = L.map('map', { zoomControl:false, scrollWheelZoom:true, touchZoom:true })
       .setView([48.6279, 8.9965], 15);
 
-    // === Basiskarten zyklisch ===
-    const baseLayers = [
-      {
-        id: 'carto',
-        label: '🗺 Hell',
-        layer: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-          maxZoom: 20, attribution: '&copy; OpenStreetMap &copy; CartoDB'
-        })
-      },
-      {
-        id: 'osm',
-        label: '🌐 OSM',
-        layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 20, attribution: '&copy; OpenStreetMap'
-        })
-      }
-    ];
-    let baseIdx = 0;
-    baseLayers[baseIdx].layer.addTo(map);
-    document.getElementById('mapBtn').textContent = baseLayers[baseIdx].label;
+    // === Kartenlayer ===
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 20, attribution: '&copy; OpenStreetMap'
+    });
+    const lightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20, attribution: '&copy; OpenStreetMap &copy; CartoDB'
+    });
+    lightLayer.addTo(map);
+    let currentLayer = lightLayer;
 
-    // Sidebar-Toggle
+    // === Buttons ===
     const overlay = document.getElementById('overlay');
     const toggleBtn = document.getElementById('toggleBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const resetIcon = document.getElementById('resetIcon');
     let visible = false;
     toggleBtn.addEventListener('click', () => {
       visible = !visible;
@@ -113,12 +145,11 @@
       toggleBtn.textContent = visible ? '× Schließen' : '☰ Liste';
     });
 
-    // Hilfsfunktionen für KML
+    // === Hilfsfunktionen für KML ===
     const KML_NS = 'http://www.opengis.net/kml/2.2';
     const byTag = (p,t)=>Array.from(p.getElementsByTagNameNS(KML_NS,t));
     const txt = e => e ? e.textContent.trim() : '';
-    const resolveHref = (href) => /^https?:/i.test(href) ? href : ('data/' + href.replace(/^\.?\/*/,''));
-
+    const resolveHref = href => /^https?:/i.test(href) ? href : ('data/' + href.replace(/^\.?\/*/,''));
     const iconCache = new Map();
     function iconFor(url){
       if (!url) return undefined;
@@ -126,7 +157,6 @@
       const ic = L.icon({ iconUrl:url, iconSize:[32,32], iconAnchor:[16,32], popupAnchor:[0,-28] });
       iconCache.set(url, ic); return ic;
     }
-
     function collectIcons(xml){
       const styles = new Map();
       byTag(xml,'Style').forEach(s=>{
@@ -155,9 +185,6 @@
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
-        const parseErr = xml.querySelector('parsererror');
-        if (parseErr) throw new Error(parseErr.textContent);
-
         const styles = collectIcons(xml);
         const list = document.getElementById('poi-list');
         const placemarks = byTag(xml,'Placemark');
@@ -167,9 +194,8 @@
           if (!pt) return;
           const coordsNode = byTag(pt,'coordinates')[0];
           if (!coordsNode) return;
-          const first = txt(coordsNode).split(/\s+/)[0];
-          const [lonStr, latStr] = first.split(',').map(s=>s.trim());
-          const lat = parseFloat(latStr), lon = parseFloat(lonStr);
+
+          const [lon, lat] = txt(coordsNode).split(',').map(parseFloat);
           if (!isFinite(lat) || !isFinite(lon)) return;
 
           const name = txt(byTag(pm,'name')[0]) || `Station ${idx+1}`;
@@ -198,26 +224,34 @@
       })
       .catch(err => {
         console.error('KML-Fehler:', err);
-        alert('KML konnte nicht geladen werden. Prüfe Pfad: data/krippenweg.kml');
+        alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/krippenweg.kml');
       });
 
-    // === Karten-Umschaltbutton ===
-    const mapBtn = document.getElementById('mapBtn');
-    mapBtn.addEventListener('click', () => {
-      // Ansicht auf alle Marker zurück
+    // === "Karte"-Button: Ansicht + Stil wechseln ===
+    resetBtn.addEventListener('click', () => {
+      // Ansicht zurücksetzen
       if (markers.length) {
         map.closePopup();
         map.flyToBounds(L.featureGroup(markers).getBounds().pad(0.15), { animate:true, duration:0.8 });
       }
-      // Layer wechseln (zyklisch)
-      map.removeLayer(baseLayers[baseIdx].layer);
-      baseIdx = (baseIdx + 1) % baseLayers.length;
-      baseLayers[baseIdx].layer.addTo(map);
-      mapBtn.textContent = baseLayers[baseIdx].label;
+
+      // Kartenstil wechseln
+      if (currentLayer === lightLayer) {
+        map.removeLayer(lightLayer);
+        osmLayer.addTo(map);
+        currentLayer = osmLayer;
+        resetIcon.src = 'data/images/World2.png';
+      } else {
+        map.removeLayer(osmLayer);
+        lightLayer.addTo(map);
+        currentLayer = lightLayer;
+        resetIcon.src = 'data/images/World1.png';
+      }
     });
   </script>
 </body>
 </html>
+
 
 
 
