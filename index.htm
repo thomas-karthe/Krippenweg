@@ -14,10 +14,10 @@
     #map { width:100%; height:100%; }
 
     /* Sidebar links */
-    #overlay{
+    #overlay {
       position:absolute; top:0; left:0; bottom:0;
       width:min(300px, 70vw);
-      background:rgba(255,255,255,0.88);
+      background:rgba(255,255,255,0.85);
       box-shadow:4px 0 25px rgba(0,0,0,0.2);
       padding:18px 20px 14px;
       overflow-y:auto;
@@ -27,38 +27,50 @@
       backdrop-filter:blur(6px) saturate(1.1);
       -webkit-backdrop-filter:blur(6px) saturate(1.1);
     }
-    #overlay.visible{ transform:translateX(0); }
+    #overlay.visible { transform:translateX(0); }
 
     /* Toggle-Button oben rechts */
-    #toggleBtn{
+    #toggleBtn {
       position:absolute; top:16px; right:16px; z-index:1100;
       background:#993355; color:#fff; border:none; border-radius:8px;
       padding:8px 14px; font-size:16px; cursor:pointer;
       box-shadow:0 2px 8px rgba(0,0,0,0.3); transition:background .2s ease;
     }
-    #toggleBtn:hover{ background:#aa4466; }
+    #toggleBtn:hover { background:#aa4466; }
 
-    h2{ margin:0 0 10px; font-weight:600; font-size:20px; color:#222; }
+    /* Karte-Umschaltbutton */
+    #mapBtn {
+      position:absolute; top:16px; right:110px; z-index:1100;
+      background:#555; color:#fff; border:none; border-radius:8px;
+      padding:8px 14px; font-size:16px; cursor:pointer;
+      box-shadow:0 2px 8px rgba(0,0,0,0.3); transition:background .2s ease;
+    }
+    #mapBtn:hover { background:#666; }
+
+    h2 { margin:0 0 10px; font-weight:600; font-size:20px; color:#222; }
 
     /* Fancy-Liste */
-    ol.fancy-list{ list-style:none; counter-reset:item; padding:0; margin:8px 0 0; }
-    ol.fancy-list li{
+    ol.fancy-list { list-style:none; counter-reset:item; padding:0; margin:8px 0 0; }
+    ol.fancy-list li {
       counter-increment:item; margin:10px 0; padding-left:48px;
       position:relative; cursor:pointer; color:#111; font-weight:500; transition:color .2s ease;
     }
-    ol.fancy-list li::before{
-      content:counter(item); position:absolute; left:0; top:50%; transform:translateY(-50%);
-      background:#993355; color:#fff; width:30px; height:30px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px;
+    ol.fancy-list li::before {
+      content:counter(item);
+      position:absolute; left:0; top:50%; transform:translateY(-50%);
+      background:#993355; color:#fff; width:30px; height:30px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:15px;
       box-shadow:0 2px 4px rgba(0,0,0,0.25);
     }
-    ol.fancy-list li:hover{ color:#993355; text-decoration:underline; }
+    ol.fancy-list li:hover { color:#993355; text-decoration:underline; }
   </style>
 </head>
 <body>
   <div id="map"></div>
 
   <button id="toggleBtn">☰ Liste</button>
+  <button id="mapBtn">🌐 Karte</button>
 
   <aside id="overlay">
     <h2>Krippenweg 2025/26</h2>
@@ -70,9 +82,26 @@
     const map = L.map('map', { zoomControl:false, scrollWheelZoom:true, touchZoom:true })
       .setView([48.6279, 8.9965], 15);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 20, attribution: '&copy; OpenStreetMap &copy; CartoDB'
-    }).addTo(map);
+    // === Basiskarten zyklisch ===
+    const baseLayers = [
+      {
+        id: 'carto',
+        label: '🗺 Hell',
+        layer: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          maxZoom: 20, attribution: '&copy; OpenStreetMap &copy; CartoDB'
+        })
+      },
+      {
+        id: 'osm',
+        label: '🌐 OSM',
+        layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 20, attribution: '&copy; OpenStreetMap'
+        })
+      }
+    ];
+    let baseIdx = 0;
+    baseLayers[baseIdx].layer.addTo(map);
+    document.getElementById('mapBtn').textContent = baseLayers[baseIdx].label;
 
     // Sidebar-Toggle
     const overlay = document.getElementById('overlay');
@@ -102,9 +131,8 @@
       const styles = new Map();
       byTag(xml,'Style').forEach(s=>{
         const id = s.getAttribute('id');
-        // KML verwendet <Icon><href>images/icon-X.png</href></Icon>
         const href = s.getElementsByTagName('href')[0];
-        if (id && href) styles.set('#'+id, resolveHref(txt(href))); // -> data/images/...
+        if (id && href) styles.set('#'+id, resolveHref(txt(href)));
       });
       byTag(xml,'StyleMap').forEach(sm=>{
         const id = sm.getAttribute('id'); if (!id) return;
@@ -120,8 +148,10 @@
       return styles;
     }
 
-    // KML laden und rendern
-    fetch('data/Krippenweg.kml')
+    const markers = [];
+
+    // === KML laden ===
+    fetch('data/doc.kml')
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
@@ -131,15 +161,12 @@
         const styles = collectIcons(xml);
         const list = document.getElementById('poi-list');
         const placemarks = byTag(xml,'Placemark');
-        const markers = [];
 
         placemarks.forEach((pm, idx) => {
           const pt = byTag(pm,'Point')[0];
           if (!pt) return;
           const coordsNode = byTag(pt,'coordinates')[0];
           if (!coordsNode) return;
-
-          // Koordinate: lon,lat[,alt] – nur die erste nehmen
           const first = txt(coordsNode).split(/\s+/)[0];
           const [lonStr, latStr] = first.split(',').map(s=>s.trim());
           const lat = parseFloat(latStr), lon = parseFloat(lonStr);
@@ -167,17 +194,29 @@
           list.appendChild(li);
         });
 
-        if (markers.length) {
-          map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15));
-        } else {
-          console.warn('Keine Placemark-Punkte in data/Krippenweg.kml gefunden.');
-        }
+        if (markers.length) map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15));
       })
       .catch(err => {
         console.error('KML-Fehler:', err);
-        alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/Krippenweg.kml');
+        alert('KML konnte nicht geladen werden. Prüfe Pfad: data/doc.kml');
       });
+
+    // === Karten-Umschaltbutton ===
+    const mapBtn = document.getElementById('mapBtn');
+    mapBtn.addEventListener('click', () => {
+      // Ansicht auf alle Marker zurück
+      if (markers.length) {
+        map.closePopup();
+        map.flyToBounds(L.featureGroup(markers).getBounds().pad(0.15), { animate:true, duration:0.8 });
+      }
+      // Layer wechseln (zyklisch)
+      map.removeLayer(baseLayers[baseIdx].layer);
+      baseIdx = (baseIdx + 1) % baseLayers.length;
+      baseLayers[baseIdx].layer.addTo(map);
+      mapBtn.textContent = baseLayers[baseIdx].label;
+    });
   </script>
 </body>
 </html>
+
 
