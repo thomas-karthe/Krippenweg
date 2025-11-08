@@ -151,7 +151,7 @@
     const markers = [];
 
     // === KML laden ===
-    fetch('data/doc.kml')
+    fetch('data/krippenweg.kml')
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
@@ -198,7 +198,7 @@
       })
       .catch(err => {
         console.error('KML-Fehler:', err);
-        alert('KML konnte nicht geladen werden. Prüfe Pfad: data/doc.kml');
+        alert('KML konnte nicht geladen werden. Prüfe Pfad: data/krippenweg.kml');
       });
 
     // === Karten-Umschaltbutton ===
@@ -218,5 +218,6 @@
   </script>
 </body>
 </html>
+
 
 
