@@ -25,6 +25,7 @@
       transition:transform .35s ease;
       backdrop-filter:blur(6px) saturate(1.1);
       -webkit-backdrop-filter:blur(6px) saturate(1.1);
+      z-index:1100;
     }
     #overlay.visible { transform:translateX(0); }
 
@@ -153,7 +154,7 @@
   </div>
 
   <!-- ☰ Liste ein-/ausblenden -->
-  <button id="poiListBtn"aria-label="Liste der Stationen ein- oder ausblenden">☰ Krippen-Stationen</button>
+  <button id="poiListBtn" aria-label="Liste der Stationen ein- oder ausblenden">☰ Krippen-Stationen</button>
 
   <!-- 🛈 Info-Button -->
   <div id="infoBtnWrap" class="tooltip-container" data-tooltip="Informationen anzeigen">
@@ -334,6 +335,7 @@
   </script>
 </body>
 </html>
+
 
 
 
