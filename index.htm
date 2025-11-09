@@ -209,7 +209,7 @@
 																   
           if (!isFinite(lat) || !isFinite(lon)) return;
 
-          const name = txt(`Station ${idx+1}`);
+          const name = txt(byTag(pm,'description')[0]) ||`Station ${idx+1}`;
           const desc = txt(byTag(pm,'description')[0]) || '';
           const styleUrl = txt(byTag(pm,'styleUrl')[0]);
           const iconHref = styleUrl ? styles.get(styleUrl) : null;
@@ -266,6 +266,7 @@
   </script>
 </body>
 </html>
+
 
 
 
