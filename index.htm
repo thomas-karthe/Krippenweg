@@ -338,9 +338,29 @@
         mapIcon.src = 'data/images/World4.png';
       }
     });
+	  
+// 🛈 Info-Overlay öffnen/schließen
+const infoBtn = document.getElementById('infoBtn');
+const infoOverlay = document.getElementById('infoOverlay');
+const closeInfo = document.getElementById('closeInfo');
+
+infoBtn.addEventListener('click', () => {
+  infoOverlay.style.display = 'flex';
+});
+
+closeInfo.addEventListener('click', () => {
+  infoOverlay.style.display = 'none';
+});
+
+// Klick außerhalb schließt das Overlay
+infoOverlay.addEventListener('click', (e) => {
+  if (e.target === infoOverlay) infoOverlay.style.display = 'none';
+});
+	  
   </script>
 </body>
 </html>
+
 
 
 
