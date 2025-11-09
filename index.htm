@@ -30,7 +30,7 @@
     #overlay.visible { transform:translateX(0); }
 
     /* Toggle-Buttons oben rechts */
-    #toggleBtn, #mapBtn {
+    #poiListBtn, #mapBtn {
       position:absolute;
 	  height:40px;	
       right:16px;
@@ -42,14 +42,14 @@
       box-shadow:0 2px 8px rgba(0,0,0,0.3);
       transition:background 0.2s ease, transform 0.2s ease;
     }
-    #toggleBtn {
+    #poiListBtn {
       top:16px;		
       background:#993355;
       color:#fff;
       padding:8px 14px;
       font-size:16px;
     }
-    #toggleBtn:hover { background:#aa4466; }
+    #poiListBtn:hover { background:#aa4466; }
 
     #mapBtn {
       top:60px;
@@ -111,9 +111,30 @@
   <button id="mapBtn" title="Kartenstil wechseln">
     <img src="data/images/World4.png" alt="Karte" id="mapIcon">
   </button>
+	
+  <button id="poiListBtn" title="Liste der Stationen ein- oder ausblenden">☰ Krippen-Stationen</button>
+  <!-- 🛈 Info-Button mit Tooltip -->
+  <div class="tooltip-container" data-tooltip="Informationen anzeigen">
+    <button id="infoBtn" title="Informationen anzeigen">🛈</button>
+  </div>
 
-  <button id="toggleBtn" title="Liste der Stationen ein- oder ausblenden">☰ Krippen-Stationen</button>
-
+  <!-- 📄 Info-Overlay -->
+  <div id="infoOverlay">
+    <div class="info-content">
+      <button id="closeInfo">×</button>
+      <h2>Über den Krippenweg</h2>
+      <p>
+        Willkommen auf dem Krippenweg!<br>
+        Auf dieser interaktiven Karte finden Sie alle Stationen mit kurzen Beschreibungen.<br><br>
+        Jede Nummer in der Liste links führt Sie direkt zum entsprechenden Ort auf der Karte.
+      </p>
+      <p>
+        <strong>Tipp:</strong> Mit dem 🌍-Button wechseln Sie zwischen Kartenstilen.<br>
+        Mit ☰ können Sie die Liste ein- oder ausblenden.
+      </p>
+    </div>
+  </div>
+  
   <aside id="overlay">
     <h2>Krippenweg 2025/26</h2>
     <ol id="poi-list" class="fancy-list"></ol>
@@ -136,14 +157,14 @@
 
     // === Buttons ===
     const overlay = document.getElementById('overlay');
-    const toggleBtn = document.getElementById('toggleBtn');
+    const poiListBtn = document.getElementById('poiListBtn');
     const mapBtn = document.getElementById('mapBtn');
     const mapIcon = document.getElementById('mapIcon');
     let visible = false;
-    toggleBtn.addEventListener('click', () => {
+    poiListBtn.addEventListener('click', () => {
       visible = !visible;
       overlay.classList.toggle('visible', visible);
-      toggleBtn.textContent = visible ? '× Schließen' : '☰ Stationen';
+      poiListBtn.textContent = visible ? '× Schließen' : '☰ Stationen';
     });
 
     // === Hilfsfunktionen für KML ===
@@ -209,7 +230,7 @@
 																   
           if (!isFinite(lat) || !isFinite(lon)) return;
 
-          const name = txt(byTag(pm,'name')[0]);
+          const name = txt(byTag(pm,'name')[0]) || `Station ${idx+1}`;
           const desc = `Station ${idx+1}`;
           const styleUrl = txt(byTag(pm,'styleUrl')[0]);
           const iconHref = styleUrl ? styles.get(styleUrl) : null;
@@ -224,7 +245,7 @@
           li.title = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
           li.addEventListener('click', () => {
             overlay.classList.remove('visible');
-            toggleBtn.textContent = '☰ Stationen'; visible = false;
+            poiListBtn.textContent = '☰ Stationen'; visible = false;
             map.flyTo([lat, lon], 18, { animate:true, duration:0.9 });
             marker.openPopup();
           });
@@ -266,6 +287,7 @@
   </script>
 </body>
 </html>
+
 
 
 
