@@ -30,7 +30,7 @@
     #overlay.visible { transform:translateX(0); }
 
     /* Toggle-Buttons oben rechts */
-    #toggleBtn, #resetBtn {
+    #toggleBtn, #mapBtn {
       position:absolute;
       top:16px;
       z-index:1100;
@@ -49,8 +49,8 @@
     }
     #toggleBtn:hover { background:#aa4466; }
 
-    #resetBtn {
-      right:150px;
+    #mapBtn {
+      left:16px;
       background:#993355;
       width:40px;
       height:40px;
@@ -59,9 +59,9 @@
       justify-content:center;
       padding:8px;
     }
-    #resetBtn:hover { background:#993355; }
-    #resetBtn img { width:24px; height:24px; transition:transform 0.3s ease; }
-    #resetBtn:hover img { transform:rotate(10deg); }
+    #mapBtn:hover { background:#993355; }
+    #mapBtn img { width:24px; height:24px; transition:transform 0.3s ease; }
+    #mapBtn:hover img { transform:rotate(10deg); }
 
     h2 { margin:0 0 10px; font-weight:600; font-size:20px; color:#222; }
 
@@ -107,8 +107,8 @@
 <body>
   <div id="map"></div>
 
-  <button id="resetBtn" title="Karte">
-    <img src="data/images/World3.png" alt="Karte" id="resetIcon">
+  <button id="mapBtn" title="Karte">
+    <img src="data/images/World3.png" alt="Karte" id="mapIcon">
   </button>
 
   <button id="toggleBtn">☰ Stationen</button>
@@ -136,8 +136,8 @@
     // === Buttons ===
     const overlay = document.getElementById('overlay');
     const toggleBtn = document.getElementById('toggleBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const resetIcon = document.getElementById('resetIcon');
+    const mapBtn = document.getElementById('mapBtn');
+    const mapIcon = document.getElementById('mapIcon');
     let visible = false;
     toggleBtn.addEventListener('click', () => {
       visible = !visible;
@@ -150,6 +150,7 @@
     const byTag = (p,t)=>Array.from(p.getElementsByTagNameNS(KML_NS,t));
     const txt = e => e ? e.textContent.trim() : '';
     const resolveHref = href => /^https?:/i.test(href) ? href : ('data/' + href.replace(/^\.?\/*/,''));
+
     const iconCache = new Map();
     function iconFor(url){
       if (!url) return undefined;
@@ -157,10 +158,12 @@
       const ic = L.icon({ iconUrl:url, iconSize:[32,32], iconAnchor:[16,32], popupAnchor:[0,-28] });
       iconCache.set(url, ic); return ic;
     }
+
     function collectIcons(xml){
       const styles = new Map();
       byTag(xml,'Style').forEach(s=>{
         const id = s.getAttribute('id');
+																	
         const href = s.getElementsByTagName('href')[0];
         if (id && href) styles.set('#'+id, resolveHref(txt(href)));
       });
@@ -185,9 +188,13 @@
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
+														  
+															
+
         const styles = collectIcons(xml);
         const list = document.getElementById('poi-list');
         const placemarks = byTag(xml,'Placemark');
+						   
 
         placemarks.forEach((pm, idx) => {
           const pt = byTag(pm,'Point')[0];
@@ -196,6 +203,9 @@
           if (!coordsNode) return;
 
           const [lon, lat] = txt(coordsNode).split(',').map(parseFloat);
+														
+																	 
+																   
           if (!isFinite(lat) || !isFinite(lon)) return;
 
           const name = txt(byTag(pm,'name')[0]) || `Station ${idx+1}`;
@@ -220,7 +230,11 @@
           list.appendChild(li);
         });
 
+							 
         if (markers.length) map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15));
+				
+																				  
+		 
       })
       .catch(err => {
         console.error('KML-Fehler:', err);
@@ -228,7 +242,7 @@
       });
 
     // === "Karte"-Button: Ansicht + Stil wechseln ===
-    resetBtn.addEventListener('click', () => {
+    mapBtn.addEventListener('click', () => {
       // Ansicht zurücksetzen
       if (markers.length) {
         map.closePopup();
@@ -240,12 +254,12 @@
         map.removeLayer(lightLayer);
         osmLayer.addTo(map);
         currentLayer = osmLayer;
-        resetIcon.src = 'data/images/World4.png';
+        mapIcon.src = 'data/images/World3.png';
       } else {
         map.removeLayer(osmLayer);
         lightLayer.addTo(map);
         currentLayer = lightLayer;
-        resetIcon.src = 'data/images/World3.png';
+        mapIcon.src = 'data/images/World4.png';
       }
     });
   </script>
