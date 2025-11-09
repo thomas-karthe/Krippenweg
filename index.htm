@@ -34,7 +34,6 @@
     #mapBtn button,
     #infoBtn {
       height: 40px;
-      width: 40px;
       font-size: 22px;
       background: #993355;
       color: #fff;
@@ -44,7 +43,7 @@
       cursor: pointer;
       transition: background 0.2s ease, transform 0.2s ease;
     }
-
+    #mapBtn button, #infoBtn {width: 40px;}
     #poiListBtn:hover,
     #mapBtn button:hover,
     #infoBtn:hover {
@@ -282,12 +281,12 @@
         map.removeLayer(lightLayer);
         osmLayer.addTo(map);
         currentLayer = osmLayer;
-        mapIcon.src = 'data/images/World2.png';
+        mapIcon.src = 'data/images/World4.png';
       } else {
         map.removeLayer(osmLayer);
         lightLayer.addTo(map);
         currentLayer = lightLayer;
-        mapIcon.src = 'data/images/World1.png';
+        mapIcon.src = 'data/images/World3.png';
       }
     });
 
@@ -303,6 +302,7 @@
   </script>
 </body>
 </html>
+
 
 
 
