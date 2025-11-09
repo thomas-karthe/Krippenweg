@@ -83,10 +83,10 @@
   .tooltip-container::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 110%;
+  top: 115%;
   right: 0;                          /* Tooltip rechtsbündig an Container */
-  transform: translateY(10px);
-  background: rgba(153, 51, 85, 0.9);
+  transform: translateY(5px);
+  background: rgba(60, 60, 60, 0.9);
   color: #fff;
   padding: 6px 10px;
   border-radius: 6px;
@@ -101,11 +101,11 @@
 .tooltip-container::before {
   content: "";
   position: absolute;
-  bottom: 100%;
+  top: 100%;
   right: 10px;                       /* kleiner Pfeil rechts unterhalb des Tooltips */
   border-width: 6px;
   border-style: solid;
-  border-color: transparent transparent rgba(153,51,85,0.9) transparent;
+  border-color: transparent transparent rgba(60,60,60,0.9) transparent;
   opacity: 0;
   transition: opacity 0.25s ease;
 }
@@ -241,7 +241,7 @@
     const markers = [];
 
     // === KML laden ===
-    fetch('data/doc.kml')
+    fetch('data/krippenweg.kml')
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
@@ -319,6 +319,7 @@
   </script>
 </body>
 </html>
+
 
 
 
