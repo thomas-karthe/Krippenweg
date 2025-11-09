@@ -29,146 +29,117 @@
     }
     #overlay.visible { transform:translateX(0); }
 
-    /* Toggle-Buttons oben rechts */
-    #poiListBtn, #mapBtn {
-      position:absolute;
-	  height:40px;	
-      right:16px;
-		
-      z-index:1100;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
+    /* Buttons oben rechts */
+    #poiListBtn, #mapBtn, #infoBtnWrap {
+      position:absolute; right:16px; z-index:1100;
+    }
+    #poiListBtn, #mapBtn button, #infoBtn {
+      border:none; border-radius:8px; cursor:pointer;
       box-shadow:0 2px 8px rgba(0,0,0,0.3);
       transition:background 0.2s ease, transform 0.2s ease;
     }
+
+    /* ☰ Liste */
     #poiListBtn {
-      top:16px;		
-      background:#993355;
-      color:#fff;
-      padding:8px 14px;
-      font-size:16px;
+      top:16px; height:40px;
+      background:#993355; color:#fff;
+      padding:8px 14px; font-size:16px;
     }
     #poiListBtn:hover { background:#aa4466; }
 
-    #mapBtn {
-      top:60px;
-      background:#993355;
-      width:40px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px;
+    /* 🌍 Kartenstil-Button (Icon) */
+    #mapBtn { top:60px; }
+    #mapBtn button {
+      background:#555; width:40px; height:40px;
+      display:flex; align-items:center; justify-content:center; padding:8px;
+      border-radius:8px;
     }
-    #mapBtn:hover { background:#993355; }
+    #mapBtn button:hover { background:#666; }
     #mapBtn img { width:24px; height:24px; transition:transform 0.3s ease; }
-    #mapBtn:hover img { transform:rotate(10deg); }
+    #mapBtn button:hover img { transform:rotate(10deg); }
+
+    /* Info-Button + Tooltip */
+    #infoBtnWrap { top:104px; }
+    #infoBtn {
+      background:rgba(0,0,0,0.7); color:#fff;
+      padding:10px 12px; font-size:20px; border-radius:10px;
+    }
+    #infoBtn:hover { background:rgba(0,0,0,0.85); }
 
     h2 { margin:0 0 10px; font-weight:600; font-size:20px; color:#222; }
 
     /* Fancy-Liste */
-    ol.fancy-list {
-      list-style:none;
-      counter-reset:item;
-      padding:0;
-      margin:8px 0 0;
-    }
+    ol.fancy-list { list-style:none; counter-reset:item; padding:0; margin:8px 0 0; }
     ol.fancy-list li {
-      counter-increment:item;
-      margin:10px 0;
-      padding-left:48px;
-      position:relative;
-      cursor:pointer;
-      color:#111;
-      font-weight:500;
+      counter-increment:item; margin:10px 0; padding-left:48px;
+      position:relative; cursor:pointer; color:#111; font-weight:500;
       transition:color .2s ease;
     }
     ol.fancy-list li::before {
       content:counter(item);
-      position:absolute;
-      left:0; top:50%;
-      transform:translateY(-50%);
-      background:#993355;
-      color:#fff;
-      width:30px; height:30px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      font-size:15px;
-      box-shadow:0 2px 4px rgba(0,0,0,0.25);
+      position:absolute; left:0; top:50%; transform:translateY(-50%);
+      background:#993355; color:#fff; width:30px; height:30px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:15px; box-shadow:0 2px 4px rgba(0,0,0,0.25);
     }
-    ol.fancy-list li:hover {
-      color:#993355;
-      text-decoration:underline;
+    ol.fancy-list li:hover { color:#993355; text-decoration:underline; }
+
+    /* Tooltip (für Info-Button, optional für andere nutzbar) */
+    .tooltip-container { position:relative; display:inline-block; }
+    .tooltip-container::after {
+      content: attr(data-tooltip);
+      position: absolute; bottom: 110%; left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(153, 51, 85, 0.9);
+      color: #fff; padding: 6px 10px; border-radius: 6px;
+      font-size: 14px; white-space: nowrap; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease; z-index: 2000;
     }
-	/* === Info Overlay === */
-#infoOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  backdrop-filter: blur(4px);
-}
+    .tooltip-container::before {
+      content: ""; position: absolute; bottom: 100%; left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px; border-style: solid;
+      border-color: transparent transparent rgba(153,51,85,0.9) transparent;
+      opacity: 0; transition: opacity 0.25s ease;
+    }
+    .tooltip-container:hover::after, .tooltip-container:hover::before {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
 
-.info-content {
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 16px;
-  max-width: 500px;
-  width: 90%;
-  padding: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  position: relative;
-  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-
-.info-content h2 {
-  color: #993355;
-  margin-top: 0;
-  font-size: 20px;
-}
-
-#closeInfo {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  color: #993355;
-  cursor: pointer;
-}
-
-/* === Info-Button-Stil === */
-#infoBtn {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-#infoBtn:hover {
-  background: rgba(0,0,0,0.85);
-}  
+    /* Info-Overlay */
+    #infoOverlay {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6);
+      display: none; align-items: center; justify-content: center;
+      z-index: 9999; backdrop-filter: blur(4px);
+    }
+    .info-content {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 16px; max-width: 500px; width: 90%;
+      padding: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    .info-content h2 { color: #993355; margin-top: 0; font-size: 20px; }
+    #closeInfo {
+      position: absolute; top: 8px; right: 12px; background: none; border: none;
+      font-size: 28px; color: #993355; cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
 
-  <button id="mapBtn" title="Kartenstil wechseln">
-    <img src="data/images/World4.png" alt="Karte" id="mapIcon">
-  </button>
-	
+  <!-- 🌍 Kartenstil wechseln (Icon wechselt World1↔World2) -->
+  <div id="mapBtn" class="tooltip-container" data-tooltip="Kartenstil wechseln">
+    <button title="Kartenstil wechseln">
+      <img src="data/images/World1.png" alt="Karte" id="mapIcon">
+    </button>
+  </div>
+
+  <!-- ☰ Liste ein-/ausblenden -->
   <button id="poiListBtn" title="Liste der Stationen ein- oder ausblenden">☰ Krippen-Stationen</button>
+
   <!-- 🛈 Info-Button mit Tooltip -->
-  <div class="tooltip-container" data-tooltip="Informationen anzeigen">
+  <div id="infoBtnWrap" class="tooltip-container" data-tooltip="Informationen anzeigen">
     <button id="infoBtn" title="Informationen anzeigen">🛈</button>
   </div>
 
@@ -188,14 +159,14 @@
       </p>
     </div>
   </div>
-  
-  <aside id="overlay">
+
+  <aside id="overlay" aria-label="Liste der Stationen">
     <h2>Krippenweg 2025/26</h2>
     <ol id="poi-list" class="fancy-list"></ol>
   </aside>
 
   <script>
-    // === Karte initialisieren ===
+    // === Karte initialisieren (ohne +/- Buttons) ===
     const map = L.map('map', { zoomControl:false, scrollWheelZoom:true, touchZoom:true })
       .setView([48.6279, 8.9965], 15);
 
@@ -210,18 +181,18 @@
     let currentLayer = lightLayer;
 
     // === Buttons ===
-    const overlay = document.getElementById('overlay');
+    const overlayEl = document.getElementById('overlay');
     const poiListBtn = document.getElementById('poiListBtn');
-    const mapBtn = document.getElementById('mapBtn');
     const mapIcon = document.getElementById('mapIcon');
-    let visible = false;
+
+    let listVisible = false;
     poiListBtn.addEventListener('click', () => {
-      visible = !visible;
-      overlay.classList.toggle('visible', visible);
-      poiListBtn.textContent = visible ? '× Schließen' : '☰ Stationen';
+      listVisible = !listVisible;
+      overlayEl.classList.toggle('visible', listVisible);
+      poiListBtn.textContent = listVisible ? '× Schließen' : '☰ Krippen-Stationen';
     });
 
-    // === Hilfsfunktionen für KML ===
+    // === KML-Parsing Helpers ===
     const KML_NS = 'http://www.opengis.net/kml/2.2';
     const byTag = (p,t)=>Array.from(p.getElementsByTagNameNS(KML_NS,t));
     const txt = e => e ? e.textContent.trim() : '';
@@ -239,7 +210,6 @@
       const styles = new Map();
       byTag(xml,'Style').forEach(s=>{
         const id = s.getAttribute('id');
-																	
         const href = s.getElementsByTagName('href')[0];
         if (id && href) styles.set('#'+id, resolveHref(txt(href)));
       });
@@ -259,18 +229,14 @@
 
     const markers = [];
 
-    // === KML laden ===
+    // === KML laden (Pfad ggf. anpassen) ===
     fetch('data/krippenweg.kml')
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
-														  
-															
-
         const styles = collectIcons(xml);
         const list = document.getElementById('poi-list');
         const placemarks = byTag(xml,'Placemark');
-						   
 
         placemarks.forEach((pm, idx) => {
           const pt = byTag(pm,'Point')[0];
@@ -278,108 +244,71 @@
           const coordsNode = byTag(pt,'coordinates')[0];
           if (!coordsNode) return;
 
-          const [lon, lat] = txt(coordsNode).split(',').map(parseFloat);
-														
-																	 
-																   
+          // robust: erstes "lon,lat[,alt]" verwenden
+          const first = txt(coordsNode).trim().split(/\s+/)[0];
+          const [lonStr, latStr] = first.split(',').map(s => s.trim());
+          const lon = parseFloat(lonStr), lat = parseFloat(latStr);
           if (!isFinite(lat) || !isFinite(lon)) return;
 
-          const name = txt(byTag(pm,'name')[0]) || `Station ${idx+1}`;
-          const desc = `Station ${idx+1}`;
+          const name = txt(byTag(pm,'name')[0]);   // immer KML-Name
+          const desc = `Station ${idx+1}`;         // immer generiert
+
           const styleUrl = txt(byTag(pm,'styleUrl')[0]);
           const iconHref = styleUrl ? styles.get(styleUrl) : null;
 
           const marker = L.marker([lat, lon], { icon: iconFor(iconHref) })
             .addTo(map)
-            .bindPopup(`<strong>${name}</strong>${desc ? '<br>'+desc : ''}`);
+            .bindPopup(`<strong>${name}</strong><br>${desc}`);
           markers.push(marker);
 
           const li = document.createElement('li');
           li.textContent = name;
           li.title = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
           li.addEventListener('click', () => {
-            overlay.classList.remove('visible');
-            poiListBtn.textContent = '☰ Stationen'; visible = false;
+            overlayEl.classList.remove('visible');
+            poiListBtn.textContent = '☰ Krippen-Stationen'; listVisible = false;
             map.flyTo([lat, lon], 18, { animate:true, duration:0.9 });
             marker.openPopup();
           });
           list.appendChild(li);
         });
 
-							 
         if (markers.length) map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15));
-				
-																				  
-		 
       })
       .catch(err => {
         console.error('KML-Fehler:', err);
-        alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/krippenweg.kml');
+        alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/doc.kml');
       });
 
-    // === "Karte"-Button: Ansicht + Stil wechseln ===
-    mapBtn.addEventListener('click', () => {
-      // Ansicht zurücksetzen
+    // === Kartenstil-Button: Ansicht zurück + Layer/Icon umschalten ===
+    document.querySelector('#mapBtn button').addEventListener('click', () => {
       if (markers.length) {
         map.closePopup();
         map.flyToBounds(L.featureGroup(markers).getBounds().pad(0.15), { animate:true, duration:0.8 });
       }
-
-      // Kartenstil wechseln
       if (currentLayer === lightLayer) {
         map.removeLayer(lightLayer);
         osmLayer.addTo(map);
         currentLayer = osmLayer;
-        mapIcon.src = 'data/images/World3.png';
+        mapIcon.src = 'data/images/World2.png';
       } else {
         map.removeLayer(osmLayer);
         lightLayer.addTo(map);
         currentLayer = lightLayer;
-        mapIcon.src = 'data/images/World4.png';
+        mapIcon.src = 'data/images/World1.png';
       }
     });
-	  
-// 🛈 Info-Overlay öffnen/schließen
-const infoBtn = document.getElementById('infoBtn');
-const infoOverlay = document.getElementById('infoOverlay');
-const closeInfo = document.getElementById('closeInfo');
 
-infoBtn.addEventListener('click', () => {
-  infoOverlay.style.display = 'flex';
-});
+    // === Info-Overlay öffnen/schließen ===
+    const infoBtn = document.getElementById('infoBtn');
+    const infoOverlay = document.getElementById('infoOverlay');
+    const closeInfo = document.getElementById('closeInfo');
 
-closeInfo.addEventListener('click', () => {
-  infoOverlay.style.display = 'none';
-});
-
-// Klick außerhalb schließt das Overlay
-infoOverlay.addEventListener('click', (e) => {
-  if (e.target === infoOverlay) infoOverlay.style.display = 'none';
-});
-	  
+    infoBtn.addEventListener('click', () => { infoOverlay.style.display = 'flex'; });
+    closeInfo.addEventListener('click', () => { infoOverlay.style.display = 'none'; });
+    infoOverlay.addEventListener('click', (e) => {
+      if (e.target === infoOverlay) infoOverlay.style.display = 'none';
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
