@@ -547,6 +547,38 @@
         <styleUrl>#icon-seq2-0-23-880E4F-highlight</styleUrl>
       </Pair>
     </StyleMap>
+    <Style id="icon-seq2-0-24-880E4F-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-25.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-seq2-0-24-880E4F-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-25.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-seq2-0-24-880E4F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-seq2-0-24-880E4F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-seq2-0-24-880E4F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
     <Style id="icon-seq2-0-3-880E4F-normal">
       <IconStyle>
         <scale>1</scale>
@@ -775,7 +807,7 @@
       <name>Stationen</name>
       <Placemark>
         <name>Rathaus</name>
-        <description>Station 1</description>
+        <description>Rathaus</description>
         <styleUrl>#icon-seq2-0-0-880E4F</styleUrl>
         <Point>
           <coordinates>
@@ -994,9 +1026,19 @@
         </Point>
       </Placemark>
       <Placemark>
+        <name>Kindergarten Schneckenburg</name>
+        <description>Kindergarten Schneckenburg</description>
+        <styleUrl>#icon-seq2-0-22-880E4F</styleUrl>
+        <Point>
+          <coordinates>
+            8.9984161,48.6288142,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
         <name>Bühlstraße/Schulstraße</name>
         <description>Bühlstraße/Schulstraße</description>
-        <styleUrl>#icon-seq2-0-22-880E4F</styleUrl>
+        <styleUrl>#icon-seq2-0-23-880E4F</styleUrl>
         <Point>
           <coordinates>
             8.997864,48.628697,0
@@ -1006,7 +1048,7 @@
       <Placemark>
         <name>Simonsen Haus</name>
         <description>Simonsen Haus</description>
-        <styleUrl>#icon-seq2-0-23-880E4F</styleUrl>
+        <styleUrl>#icon-seq2-0-24-880E4F</styleUrl>
         <Point>
           <coordinates>
             8.996768,48.628338,0
