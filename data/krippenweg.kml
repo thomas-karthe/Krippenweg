@@ -774,8 +774,8 @@
     <Folder>
       <name>Stationen</name>
       <Placemark>
-        <name>Station 1</name>
-        <description>Rathaus</description>
+        <name>Station_1</name>
+        <description>Rathaus_</description>
         <styleUrl>#icon-seq2-0-0-880E4F</styleUrl>
         <Point>
           <coordinates>
