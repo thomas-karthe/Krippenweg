@@ -80,25 +80,42 @@
 
     /* Tooltip-Stil */
     .tooltip-container { position:relative; display:inline-block; }
-    .tooltip-container::after {
-      content: attr(data-tooltip);
-      position: absolute; bottom: 110%; left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: rgba(153, 51, 85, 0.9);
-      color: #fff; padding: 6px 10px; border-radius: 6px;
-      font-size: 14px; white-space: nowrap; opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease; z-index: 2000;
-    }
-    .tooltip-container::before {
-      content: ""; position: absolute; bottom: 100%; left: 50%;
-      transform: translateX(-50%);
-      border-width: 6px; border-style: solid;
-      border-color: transparent transparent rgba(153,51,85,0.9) transparent;
-      opacity: 0; transition: opacity 0.25s ease;
-    }
-    .tooltip-container:hover::after, .tooltip-container:hover::before {
-      opacity: 1; transform: translateX(-50%) translateY(0);
-    }
+  .tooltip-container::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 110%;
+  right: 0;                          /* Tooltip rechtsbündig an Container */
+  transform: translateY(10px);
+  background: rgba(153, 51, 85, 0.9);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 2000;
+}
+
+.tooltip-container::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 10px;                       /* kleiner Pfeil rechts unterhalb des Tooltips */
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent rgba(153,51,85,0.9) transparent;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.tooltip-container:hover::after,
+.tooltip-container:hover::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
     /* Info-Overlay */
     #infoOverlay {
@@ -281,12 +298,12 @@
         map.removeLayer(lightLayer);
         osmLayer.addTo(map);
         currentLayer = osmLayer;
-        mapIcon.src = 'data/images/World4.png';
+        mapIcon.src = 'data/images/World3.png';
       } else {
         map.removeLayer(osmLayer);
         lightLayer.addTo(map);
         currentLayer = lightLayer;
-        mapIcon.src = 'data/images/World3.png';
+        mapIcon.src = 'data/images/World4.png';
       }
     });
 
@@ -302,6 +319,7 @@
   </script>
 </body>
 </html>
+
 
 
 
