@@ -29,42 +29,35 @@
     }
     #overlay.visible { transform:translateX(0); }
 
-    /* Buttons oben rechts */
-    #poiListBtn, #mapBtn, #infoBtnWrap {
-      position:absolute; right:16px; z-index:1100;
-    }
-    #poiListBtn, #mapBtn button, #infoBtn {
-      border:none; border-radius:8px; cursor:pointer;
-      box-shadow:0 2px 8px rgba(0,0,0,0.3);
-      transition:background 0.2s ease, transform 0.2s ease;
-    }
-
-    /* ☰ Liste */
-    #poiListBtn {
-      top:16px; height:40px;
-      background:#993355; color:#fff;
-      padding:8px 14px; font-size:16px;
-    }
-    #poiListBtn:hover { background:#aa4466; }
-
-    /* 🌍 Kartenstil-Button (Icon) */
-    #mapBtn { top:60px; }
-    #mapBtn button {
-      background:#555; width:40px; height:40px;
-      display:flex; align-items:center; justify-content:center; padding:8px;
-      border-radius:8px;
-    }
-    #mapBtn button:hover { background:#666; }
-    #mapBtn img { width:24px; height:24px; transition:transform 0.3s ease; }
-    #mapBtn button:hover img { transform:rotate(10deg); }
-
-    /* Info-Button + Tooltip */
-    #infoBtnWrap { top:104px; }
+    /* === Einheitliche Buttons (Liste, Karte, Info) === */
+    #poiListBtn,
+    #mapBtn button,
     #infoBtn {
-      background:rgba(0,0,0,0.7); color:#fff;
-      padding:10px 12px; font-size:20px; border-radius:10px;
+      height: 40px;
+      background: #993355;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
-    #infoBtn:hover { background:rgba(0,0,0,0.85); }
+
+    #poiListBtn:hover,
+    #mapBtn button:hover,
+    #infoBtn:hover {
+      background: #aa4466;
+    }
+
+    /* Positionierung der Buttons */
+    #poiListBtn { position:absolute; top:16px; right:16px; z-index:1100; padding:0 14px; font-size:16px; }
+    #mapBtn { position:absolute; top:60px; right:16px; z-index:1100; }
+    #infoBtnWrap { position:absolute; top:104px; right:16px; z-index:1100; }
+
+    #mapBtn img {
+      width: 24px; height: 24px; transition: transform 0.3s ease;
+    }
+    #mapBtn button:hover img { transform: rotate(10deg); }
 
     h2 { margin:0 0 10px; font-weight:600; font-size:20px; color:#222; }
 
@@ -84,7 +77,7 @@
     }
     ol.fancy-list li:hover { color:#993355; text-decoration:underline; }
 
-    /* Tooltip (für Info-Button, optional für andere nutzbar) */
+    /* Tooltip-Stil */
     .tooltip-container { position:relative; display:inline-block; }
     .tooltip-container::after {
       content: attr(data-tooltip);
@@ -128,7 +121,7 @@
 <body>
   <div id="map"></div>
 
-  <!-- 🌍 Kartenstil wechseln (Icon wechselt World1↔World2) -->
+  <!-- 🌍 Kartenstil wechseln -->
   <div id="mapBtn" class="tooltip-container" data-tooltip="Kartenstil wechseln">
     <button title="Kartenstil wechseln">
       <img src="data/images/World1.png" alt="Karte" id="mapIcon">
@@ -138,7 +131,7 @@
   <!-- ☰ Liste ein-/ausblenden -->
   <button id="poiListBtn" title="Liste der Stationen ein- oder ausblenden">☰ Krippen-Stationen</button>
 
-  <!-- 🛈 Info-Button mit Tooltip -->
+  <!-- 🛈 Info-Button -->
   <div id="infoBtnWrap" class="tooltip-container" data-tooltip="Informationen anzeigen">
     <button id="infoBtn" title="Informationen anzeigen">🛈</button>
   </div>
@@ -166,7 +159,7 @@
   </aside>
 
   <script>
-    // === Karte initialisieren (ohne +/- Buttons) ===
+    // === Karte initialisieren ===
     const map = L.map('map', { zoomControl:false, scrollWheelZoom:true, touchZoom:true })
       .setView([48.6279, 8.9965], 15);
 
@@ -192,7 +185,7 @@
       poiListBtn.textContent = listVisible ? '× Schließen' : '☰ Krippen-Stationen';
     });
 
-    // === KML-Parsing Helpers ===
+    // === Hilfsfunktionen für KML ===
     const KML_NS = 'http://www.opengis.net/kml/2.2';
     const byTag = (p,t)=>Array.from(p.getElementsByTagNameNS(KML_NS,t));
     const txt = e => e ? e.textContent.trim() : '';
@@ -229,8 +222,8 @@
 
     const markers = [];
 
-    // === KML laden (Pfad ggf. anpassen) ===
-    fetch('data/krippenweg.kml')
+    // === KML laden ===
+    fetch('data/doc.kml')
       .then(r => r.text())
       .then(kmlText => {
         const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
@@ -243,16 +236,13 @@
           if (!pt) return;
           const coordsNode = byTag(pt,'coordinates')[0];
           if (!coordsNode) return;
-
-          // robust: erstes "lon,lat[,alt]" verwenden
           const first = txt(coordsNode).trim().split(/\s+/)[0];
           const [lonStr, latStr] = first.split(',').map(s => s.trim());
           const lon = parseFloat(lonStr), lat = parseFloat(latStr);
           if (!isFinite(lat) || !isFinite(lon)) return;
 
-          const name = txt(byTag(pm,'name')[0]);   // immer KML-Name
-          const desc = `Station ${idx+1}`;         // immer generiert
-
+          const name = txt(byTag(pm,'name')[0]);
+          const desc = `Station ${idx+1}`;
           const styleUrl = txt(byTag(pm,'styleUrl')[0]);
           const iconHref = styleUrl ? styles.get(styleUrl) : null;
 
@@ -280,7 +270,7 @@
         alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/doc.kml');
       });
 
-    // === Kartenstil-Button: Ansicht zurück + Layer/Icon umschalten ===
+    // === Kartenstil wechseln ===
     document.querySelector('#mapBtn button').addEventListener('click', () => {
       if (markers.length) {
         map.closePopup();
@@ -299,11 +289,10 @@
       }
     });
 
-    // === Info-Overlay öffnen/schließen ===
+    // === Info-Overlay ===
     const infoBtn = document.getElementById('infoBtn');
     const infoOverlay = document.getElementById('infoOverlay');
     const closeInfo = document.getElementById('closeInfo');
-
     infoBtn.addEventListener('click', () => { infoOverlay.style.display = 'flex'; });
     closeInfo.addEventListener('click', () => { infoOverlay.style.display = 'none'; });
     infoOverlay.addEventListener('click', (e) => {
@@ -312,3 +301,4 @@
   </script>
 </body>
 </html>
+
