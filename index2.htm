@@ -407,6 +407,50 @@
         }
       }
     });
+    // === Aktuelle Position anzeigen ===
+let userMarker = null;
+let userCircle = null;
+
+function onLocationFound(e) {
+  const { lat, lng } = e.latlng;
+
+  if (!userMarker) {
+    userMarker = L.circleMarker([lat, lng], {
+      radius: 8,
+      color: "#0066ff",
+      fillColor: "#3399ff",
+      fillOpacity: 1,
+      weight: 2
+    }).addTo(map);
+
+    userCircle = L.circle([lat, lng], {
+      radius: e.accuracy,
+      color: "#0066ff",
+      fillColor: "#0066ff",
+      fillOpacity: 0.15,
+      weight: 1
+    }).addTo(map);
+  } else {
+    userMarker.setLatLng([lat, lng]);
+    userCircle.setLatLng([lat, lng]);
+    userCircle.setRadius(e.accuracy);
+  }
+}
+
+function onLocationError(e) {
+  console.warn("Standortfehler:", e.message);
+}
+
+map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError);
+
+// Standort-Aktualisierung starten (kontinuierlich)
+map.locate({
+  watch: true,
+  enableHighAccuracy: true,
+  maxZoom: 18
+});
+
   </script>
 </body>
 </html>
