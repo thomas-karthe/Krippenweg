@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Krippenweg 2025/26</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    html, body { height:100%; margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+    #map { width:100%; height:100%; }
+
+    /* Sidebar links */
+    #overlay {
+      position:absolute; top:0; left:0; bottom:0;
+      width:min(300px, 70vw);
+      background:rgba(255,255,255,0.82);
+      box-shadow:4px 0 25px rgba(0,0,0,0.2);
+      padding:18px 20px 14px;
+      overflow-y:auto;
+      transform:translateX(-105%);
+      transition:transform .35s ease;
+      backdrop-filter:blur(6px) saturate(1.1);
+      -webkit-backdrop-filter:blur(6px) saturate(1.1);
+      z-index:1100;
+    }
+    #overlay.visible { transform:translateX(0); }
+
+    /* === Einheitliche Buttons (Liste, Karte, Info, Route) === */
+    #poiListBtn,
+    #mapBtn button,
+    #infoBtn,
+    #routeBtn {
+      height: 40px;
+      font-size: 22px;
+      background: #993355;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    #mapBtn button, #infoBtn, #routeBtn {width: 40px;}
+    #poiListBtn:hover,
+    #mapBtn button:hover,
+    #infoBtn:hover,
+    #routeBtn:hover {
+      background: #aa4466;
+    }
+
+    /* visuelle Hervorhebung, wenn Route aktiv ist */
+    #routeBtn.active {
+      box-shadow: 0 0 0 2px #fff, 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    /* Positionierung der Buttons */
+    #poiListBtn { position:absolute; top:16px; right:16px; z-index:1100; padding:0 14px; font-size:16px; }
+    #mapBtn { position:absolute; top:60px; right:16px; z-index:1100; }
+    #infoBtnWrap { position:absolute; top:104px; right:16px; z-index:1100; }
+    /* Route-Button unter Info */
+    #routeBtnWrap { position:absolute; top:148px; right:16px; z-index:1100; }
+
+    #mapBtn img {
+      width: 24px; height: 24px; transition: transform 0.3s ease;
+    }
+    #mapBtn button:hover img { transform: rotate(10deg); }
+
+    h2 { margin:0 0 10px; font-weight:600; font-size:20px; color:#222; }
+
+    /* Fancy-Liste */
+    ol.fancy-list { list-style:none; counter-reset:item; padding:0; margin:8px 0 0; }
+    ol.fancy-list li {
+      counter-increment:item; margin:10px 0; padding-left:48px;
+      position:relative; cursor:pointer; color:#111; font-weight:500;
+      transition:color .2s ease;
+    }
+    ol.fancy-list li::before {
+      content:counter(item);
+      position:absolute; left:0; top:50%; transform:translateY(-50%);
+      background:#993355; color:#fff; width:30px; height:30px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:15px; box-shadow:0 2px 4px rgba(0,0,0,0.25);
+    }
+    ol.fancy-list li:hover { color:#993355; text-decoration:underline; }
+
+    /* Tooltip-Stil */
+    .tooltip-container { position:relative; display:inline-block; }
+    .tooltip-container::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: 50%;
+      right: 50px;
+      transform: translateY(5px);
+      background: rgba(60, 60, 60, 0.9);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .tooltip-container:hover::after,
+    .tooltip-container:hover::before {
+      opacity: 1;
+    }
+
+    /* Info-Overlay */
+    #infoOverlay {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6);
+      display: none; align-items: center; justify-content: center;
+      z-index: 9999; backdrop-filter: blur(4px);
+      touch-action: none; 
+    }
+    .info-content {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 16px; max-width: 500px; width: 90%;
+      overflow-y: auto;
+      padding: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      touch-action: pan-y;
+    }
+    .info-content h2 { color: #993355; margin-top: 0; font-size: 20px; }
+    #closeInfo {
+      position: fixed; top: 12px; left: 12px; background: rgba(0,0,0,0.4); border: none;
+      font-size: 28px; color: #993355; cursor: pointer; border-radius:50%;
+      width: 36px; height: 36px; font-size: 26px; cursor:pointer; z-index:10000;
+    }
+
+    /* === Responsive Anpassung für Smartphone === */
+    @media (max-width: 600px) {
+      .info-content {
+        width: 92%;
+        max-width: none;
+        padding: 18px;
+        font-size: 15px;
+      }
+
+      .info-content h2 {
+        font-size: 18px;
+      }
+
+      #closeInfo {
+        top: 4px;
+        right: 8px;
+        font-size: 24px;
+      }
+    }
+
+    #emklogo {display:block; width:40%; height:auto; right:0px; margin: 0 0 16px auto;}
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- 🌍 Kartenstil wechseln -->
+  <div id="mapBtn" class="tooltip-container" data-tooltip="Kartenstil wechseln">
+    <button aria-label="Kartenstil wechseln">
+      <img src="data/images/World4.png" alt="" id="mapIcon">
+    </button>
+  </div>
+
+  <!-- ☰ Liste ein-/ausblenden -->
+  <button id="poiListBtn" aria-label="Liste der Stationen ein- oder ausblenden">☰ Krippen-Stationen</button>
+
+  <!-- 🛈 Info-Button -->
+  <div id="infoBtnWrap" class="tooltip-container" data-tooltip="Informationen anzeigen">
+    <button id="infoBtn" aria-label="Informationen anzeigen" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="2"/>
+        <line x1="12" y1="10" x2="12" y2="16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="7" r="1.5" fill="white"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- 🚶‍♂️ Route-Button -->
+  <div id="routeBtnWrap" class="tooltip-container" data-tooltip="Route ein-/ausblenden">
+    <button id="routeBtn" aria-label="Route ein- oder ausblenden" type="button">
+      <!-- kleines Linien-Symbol -->
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <polyline points="3,18 8,8 14,14 21,5" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- 📄 Info-Overlay -->
+  <div id="infoOverlay">
+    <div class="info-content">
+      <button id="closeInfo">×</button>
+      <img id="emklogo" src="data/images/emk-logo.png" alt="EmK Logo" loading="lazy">
+      <h2>Willkommen<br>auf dem Altdorfer Krippenweg 2025/26</h2>
+      
+        Nehmen Sie sich Zeit und finden Sie Ihren Weg. Individuelle Krippen laden Sie zum Staunen und Verweilen ein.
+        <br>
+        <ul>
+          <li>Auftaktveranstaltung am 30.11.2025 um 17:00Uhr am Rathausplatz.</li>
+          <li>An allen Sonntagen ist unsere Kirche in der Schaichhofstraße 5 von 16:00 Uhr - 19:00 Uhr zum äußeren und inneren Aufwärmen geöffnet und bietet sich als Ende Ihres Weges an</li>
+        </ul>
+        Auf dieser interaktiven Karte finden Sie alle Stationen mit kurzen Beschreibungen.<br><br>
+        Jede Nummer in der Liste links führt Sie direkt zum entsprechenden Ort auf der Karte.
+      <p>
+        <strong>Tipps:</strong> 
+        <ul>
+          <li>Mit dem <img src="data/images/World1.png" alt="Karten-Icon" style="height:18px; vertical-align:middle; margin:-2px 4px 0 2px;">-Button wechseln Sie zwischen Kartenstilen.</li>
+          <li>Mit dem ☰-Button können Sie die Liste der Krippen-Stationen ein- oder ausblenden.</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+
+  <aside id="overlay" aria-label="Liste der Stationen">
+    <h2>Krippenweg 2025/26</h2>
+    <ol id="poi-list" class="fancy-list"></ol>
+  </aside>
+
+  <script>
+    // === Karte initialisieren ===
+    const map = L.map('map', { zoomControl:false, scrollWheelZoom:true, touchZoom:true })
+      .setView([48.6279, 8.9965], 15);
+
+    // === Kartenlayer ===
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 20, attribution: '&copy; OpenStreetMap'
+    });
+    const lightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20, attribution: '&copy; OpenStreetMap &copy; CartoDB'
+    });
+    lightLayer.addTo(map);
+    let currentLayer = lightLayer;
+
+    // === Buttons ===
+    const overlayEl = document.getElementById('overlay');
+    const poiListBtn = document.getElementById('poiListBtn');
+    const mapIcon = document.getElementById('mapIcon');
+
+    let listVisible = false;
+    poiListBtn.addEventListener('click', () => {
+      listVisible = !listVisible;
+      overlayEl.classList.toggle('visible', listVisible);
+      poiListBtn.textContent = listVisible ? '× Schließen' : '☰ Krippen-Stationen';
+    });
+
+    // === Hilfsfunktionen für KML ===
+    const KML_NS = 'http://www.opengis.net/kml/2.2';
+    const byTag = (p,t)=>Array.from(p.getElementsByTagNameNS(KML_NS,t));
+    const txt = e => e ? e.textContent.trim() : '';
+    const resolveHref = href => /^https?:/i.test(href) ? href : ('data/' + href.replace(/^\.?\/*/,''));    
+
+    const iconCache = new Map();
+    function iconFor(url){
+      if (!url) return undefined;
+      if (iconCache.has(url)) return iconCache.get(url);
+      const ic = L.icon({ iconUrl:url, iconSize:[32,32], iconAnchor:[16,32], popupAnchor:[0,-28] });
+      iconCache.set(url, ic); return ic;
+    }
+
+    function collectIcons(xml){
+      const styles = new Map();
+      byTag(xml,'Style').forEach(s=>{
+        const id = s.getAttribute('id');
+        const href = s.getElementsByTagName('href')[0];
+        if (id && href) styles.set('#'+id, resolveHref(txt(href)));
+      });
+      byTag(xml,'StyleMap').forEach(sm=>{
+        const id = sm.getAttribute('id'); if (!id) return;
+        const pairs = byTag(sm,'Pair');
+        let resolved=null;
+        for(const key of ['normal','highlight']){
+          const p = pairs.find(px => txt(byTag(px,'key')[0])===key);
+          const su = p && txt(byTag(p,'styleUrl')[0]);
+          if (su && styles.has(su)) { resolved = styles.get(su); break; }
+        }
+        if (resolved) styles.set('#'+id, resolved);
+      });
+      return styles;
+    }
+
+    const markers = [];
+
+    // === KML laden ===
+    fetch('data/krippenweg.kml')
+      .then(r => r.text())
+      .then(kmlText => {
+        const xml = new DOMParser().parseFromString(kmlText, 'application/xml');
+        const styles = collectIcons(xml);
+        const list = document.getElementById('poi-list');
+        const placemarks = byTag(xml,'Placemark');
+
+        placemarks.forEach((pm, idx) => {
+          const pt = byTag(pm,'Point')[0];
+          if (!pt) return;
+          const coordsNode = byTag(pt,'coordinates')[0];
+          if (!coordsNode) return;
+          const first = txt(coordsNode).trim().split(/\s+/)[0];
+          const [lonStr, latStr] = first.split(',').map(s => s.trim());
+          const lon = parseFloat(lonStr), lat = parseFloat(latStr);
+          if (!isFinite(lat) || !isFinite(lon)) return;
+
+          const name = txt(byTag(pm,'name')[0]);
+          const desc = `Station ${idx+1}`;
+          const styleUrl = txt(byTag(pm,'styleUrl')[0]);
+          const iconHref = styleUrl ? styles.get(styleUrl) : null;
+
+          const marker = L.marker([lat, lon], { icon: iconFor(iconHref) })
+            .addTo(map)
+            .bindPopup(`<strong>${name}</strong><br>${desc}`);
+          markers.push(marker);
+
+          const li = document.createElement('li');
+          li.textContent = name;
+          li.title = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+          li.addEventListener('click', () => {
+            overlayEl.classList.remove('visible');
+            poiListBtn.textContent = '☰ Krippen-Stationen'; listVisible = false;
+            map.flyTo([lat, lon], 18, { animate:true, duration:0.9 });
+            marker.openPopup();
+          });
+          list.appendChild(li);
+        });
+
+        if (markers.length) map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15));
+      })
+      .catch(err => {
+        console.error('KML-Fehler:', err);
+        alert('KML konnte nicht geladen/geparst werden. Prüfe Pfad: data/krippenweg.kml');
+      });
+
+    // === Kartenstil wechseln ===
+    document.querySelector('#mapBtn button').addEventListener('click', () => {
+      if (markers.length) {
+        map.closePopup();
+        map.flyToBounds(L.featureGroup(markers).getBounds().pad(0.15), { animate:true, duration:0.8 });
+      }
+      if (currentLayer === lightLayer) {
+        map.removeLayer(lightLayer);
+        osmLayer.addTo(map);
+        currentLayer = osmLayer;
+        mapIcon.src = 'data/images/World3.png';
+      } else {
+        map.removeLayer(osmLayer);
+        lightLayer.addTo(map);
+        currentLayer = lightLayer;
+        mapIcon.src = 'data/images/World4.png';
+      }
+    });
+
+    // === Info-Overlay ===
+    const infoBtn = document.getElementById('infoBtn');
+    const infoOverlay = document.getElementById('infoOverlay');
+    const closeInfo = document.getElementById('closeInfo');
+    infoBtn.addEventListener('click', () => { infoOverlay.style.display = 'flex'; });
+    closeInfo.addEventListener('click', () => { infoOverlay.style.display = 'none'; });
+    infoOverlay.addEventListener('click', (e) => {
+      if (e.target === infoOverlay) infoOverlay.style.display = 'none';
+    });
+
+    // === Route-Toggle (data/route.json) ===
+    const routeBtn = document.getElementById('routeBtn');
+    let routeLayer = null;
+    let routeVisible = false;
+
+    routeBtn.addEventListener('click', () => {
+      // Erstes Mal: Route laden
+      if (!routeLayer) {
+        fetch('data/route.json')
+          .then(r => r.json())
+          .then(json => {
+            // json ist: [ [ [lat,lng], [lat,lng], ... ] ]
+            const rawCoords = Array.isArray(json) ? json[0] : [];
+            const coords = rawCoords.map(p => [p[0], p[1]]); // [lat, lng]
+
+            routeLayer = L.polyline(coords, {
+              color: '#993355',   // gleiche dunkelrote Farbe wie Buttons
+              weight: 5,
+              opacity: 0.9
+            }).addTo(map);
+
+            routeVisible = true;
+            routeBtn.classList.add('active');
+
+            // Optional: Karte auf die Route zoomen
+            if (coords.length > 1) {
+              map.fitBounds(routeLayer.getBounds().pad(0.1));
+            }
+          })
+          .catch(err => {
+            console.error('Route-Fehler:', err);
+            alert('Route konnte nicht geladen werden. Prüfe data/route.json.');
+          });
+      } else {
+        // Bereits geladen: nur ein-/ausblenden
+        if (routeVisible) {
+          map.removeLayer(routeLayer);
+          routeVisible = false;
+          routeBtn.classList.remove('active');
+        } else {
+          routeLayer.addTo(map);
+          routeVisible = true;
+          routeBtn.classList.add('active');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
